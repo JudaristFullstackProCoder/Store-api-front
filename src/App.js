@@ -6,6 +6,8 @@ import AnalyticsPage from "./components/pages/Analytics";
 import MessagesPage from "./components/pages/Messages";
 import SettingsPage from "./components/pages/Settings";
 import { AppTitleContext } from "./components/context/AppTitleContext";
+import LoginPage from "./components/pages/LogIn";
+import SignInPage from "./components/pages/SignIn";
 
 function App() {
     return <div className="App">
@@ -17,6 +19,8 @@ function App() {
           <Route path="/Analytics" element={<Dashboard AppTitle="Analytics" pageElement={<AnalyticsPage />} />} />
           <Route path="/Messages" element={<Dashboard AppTitle="Messages" pageElement={<MessagesPage />} />} />
           <Route path="/Settings" element={<Dashboard AppTitle="Settings" pageElement={<SettingsPage />} />} />
+          <Route path="/Login" element={LoginPage} />
+          <Route path="/SignIn" element={SignInPage} />
         </Routes>
       </BrowserRouter>
     </AppTitleContext.Provider>
