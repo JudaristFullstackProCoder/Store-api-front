@@ -1,59 +1,14 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-// SVG IMPORTS
-import dashboard from "../svg/dashboard.svg";
-import header from "../svg/header.svg";
-import message from "../svg/message.svg";
-import products from "../svg/products.svg";
-import settings from "../svg/settings.svg";
-import split_expand from "../svg/split-expand.svg";
-import analytics from "../svg/analytics.svg"
+import PropTypes from "prop-types";
+import { sidebarFooter, sidebarHeader, sidebar, TopBarNotifIcon, TopBarAvatar, SidebarWidths } from "./SidebarData";
+
 
 export function Sidebar () {
 
      let sidebarRef = useRef()
-
-     let w = {
-          min: '80px',
-          max: '213px',
-     }
-
-     let sidebarHeader = {
-          text: 'Shopping',
-          icon: header,
-     }
-
-     let sidebar = [
-          {
-               icon: dashboard,
-               text: 'Dashboard',
-               link: '/',
-          },{
-               icon: analytics,
-               text: 'Analytics',
-               link: '/Analytics',
-          },{
-               icon: products,
-               text: 'Product',
-               link: '/Prods',
-          },{
-               icon: message,
-               text: 'Messages',
-               link: '/Messages',
-          },{
-               icon: settings,
-               text: 'Settings',
-               link: '/Settings',
-          }
-     ]
-
-     let sidebarFooter = {
-          icon: split_expand,
-          text: 'sidebarFootersplit_expand'
-     }
-
+     let w = SidebarWidths;
      let [actualWidth, setActualWidth] = useState(w.max);
-
      useEffect(() => {
           sidebarRef.current.style.width = actualWidth;
      });
@@ -74,7 +29,7 @@ export function Sidebar () {
           }
      }, [actualWidth, w.max, w.min]);
 
-     return <div className={`overflow-hidden cursor-pointer shadow-md bg-white sm:hidden md:hidden xl:block lg:block`} ref={sidebarRef}>
+     return <div className={`overflow-hidden cursor-pointer shadow-md bg-white xs:hidden sm:hidden md:block xl:block lg:block`} ref={sidebarRef}>
           <div className="mt-[32px] mb-[32px] mx-auto">
                <span className="flex ml-[15px] mr-[15px]"><img src={sidebarHeader.icon} alt={sidebarHeader.text} />
                <span className="ml-[7px] leading-tight my-auto" id="XsqfpxwvVb">{sidebarHeader.text}</span></span>
@@ -96,21 +51,30 @@ export function Sidebar () {
 export function TopBar (props) {
      return <div className="flex h-14 shadow-sm bg-white border-l-2"> 
           <span className="text-xl text-black font-bold ml-[25px] my-auto">{props.title}</span>
+          <span className="fixed right-20 top-1 cursor-pointer">
+               <img src={TopBarAvatar.icon} alt={TopBarAvatar.text} className="float-left mr-[15px]" />
+               <span className="text-sm mr-2 relative font-semibold">{TopBarAvatar.text}</span>
+          </span>
+          <span className="my-auto fixed right-4 top-4 cursor-pointer">
+               <img src={TopBarNotifIcon.icon} alt={TopBarNotifIcon.text} width={"22px"} height={"28px"} className="mr-[15px]" />
+          </span>
      </div>
 }
 
-export function AppContent (props) {
-     return <div className="w-full h-full p-4"> {props.children} </div>
+TopBar.propTypes = {
+     title: PropTypes.string.isRequired,
 }
-
 export default function Dashboard (props) {
      return <div className="flex bg-gray-200 dashboard-app">
           <Sidebar />
           <div className="flex flex-col w-full h-full">
                <TopBar title={props.AppTitle} />
-               <AppContent>
-                    {props.pageElement}
-               </AppContent>
+               <div className="w-full h-full p-4">  {props.pageElement} </div>
           </div>
      </div>
+}
+
+Dashboard.propTypes = {
+     pageElement: PropTypes.object.isRequired,
+     AppTitle: PropTypes.string.isRequired,
 }
