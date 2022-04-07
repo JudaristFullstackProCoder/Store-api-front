@@ -6,8 +6,9 @@ import products from "../svg/products.svg";
 import settings from "../svg/settings.svg";
 import split_expand from "../svg/split-expand.svg";
 import analytics from "../svg/analytics.svg";
-import avatar from "../svg/avatar.svg";
+import { User } from "tabler-icons-react";
 import notification from "../svg/notification.svg";
+import { Link } from "react-router-dom";
 
 export const sidebarHeader = {
      text: 'Shopping',
@@ -39,7 +40,6 @@ export const sidebar = [
 ]
 
 export const sidebarFooter = {
-     user: avatar,
      icon: split_expand,
      text: 'Jude',
 }
@@ -50,8 +50,7 @@ export const TopBarNotifIcon = {
 };
 
 export const TopBarAvatar = {
-     icon: avatar,
-     text: 'Jude',
+     icon: <Link to={'/Profile'}><User size={32} color={'blue'} /></Link>,
 }
 
 export const SidebarWidths = {
