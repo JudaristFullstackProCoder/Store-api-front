@@ -1,7 +1,12 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useCallback, useContext, useEffect, useRef, useState } from "react";
+import { Link, Navigate } from "react-router-dom";
 import PropTypes from "prop-types";
-import { sidebarFooter, sidebarHeader, sidebar, TopBarNotifIcon, TopBarAvatar, SidebarWidths } from "./SidebarData";
+import {Bell, Check} from "tabler-icons-react"
+import { sidebarFooter, sidebarHeader, sidebar, SidebarWidths } from "./SidebarData";
+import { Avatar, Divider } from "@mantine/core";
+import UserOptionsDrawer from "./UserOptionsDrawer";
+import { showNotification } from '@mantine/notifications';
+import { userContext } from "../context/userContext";
 
 
 export function Sidebar () {
@@ -30,13 +35,14 @@ export function Sidebar () {
      }, [actualWidth, w.max, w.min]);
 
      return <div className={`overflow-hidden cursor-pointer shadow-md bg-white xs:hidden sm:hidden md:block xl:block lg:block`} ref={sidebarRef}>
-          <div className="mt-[32px] mb-[32px] mx-auto">
-               <span className="flex ml-[15px] mr-[15px]"><img src={sidebarHeader.icon} alt={sidebarHeader.text} />
-               <span className="ml-[7px] leading-tight my-auto" id="XsqfpxwvVb">{sidebarHeader.text}</span></span>
+          <div className="mt-[17px] mb-[5px] mx-auto">
+               <span className="flex ml-[15px] mb-3 mr-[15px]"><img src={sidebarHeader.icon} height={"30px"} width={"25px"} alt={sidebarHeader.text} />
+               <span className="ml-[7px] mb-1 leading-tight my-auto" id="XsqfpxwvVb">{sidebarHeader.text}</span></span>
           </div>
+          <Divider size="xs" />
           <ul className="list-none mr-[20px] mb-[30px]">
                <div id="x1SdxwmZsQqqpm">{sidebar.map((e) => {
-                    return <Link to={e.link}><li className="flex pl-[20px] h-[45px]" key={e.text}>
+                    return <Link to={e.link} key={e.link}><li className="flex pl-[20px] h-[45px]" key={e.text}>
                          <img src={e.icon} alt={e.text} width={"22px"} height={"28px"} className="mr-[15px]" />
                          <span className="my-auto">{e.text}</span>
                     </li></Link>
@@ -51,13 +57,13 @@ export function Sidebar () {
 export function TopBar (props) {
      return <div className="flex h-14 shadow-sm bg-white border-l-2"> 
           <span className="text-xl text-black font-bold ml-[25px] my-auto">{props.title}</span>
-          <span className="fixed right-20 top-1 cursor-pointer">
-               <img src={TopBarAvatar.icon} alt={TopBarAvatar.text} className="float-left mr-[15px]" />
-               <span className="text-sm mr-2 relative font-semibold">{TopBarAvatar.text}</span>
+          <span className="fixed right-10 top-2 cursor-pointer mr-6">
+               <UserOptionsDrawer control={<Avatar />}  />
           </span>
-          <span className="my-auto fixed right-4 top-4 cursor-pointer">
-               <img src={TopBarNotifIcon.icon} alt={TopBarNotifIcon.text} width={"22px"} height={"28px"} className="mr-[15px]" />
+          <span className="my-auto fixed right-4 top-3 cursor-pointer">
+               <Bell  size={30} color="blue" />
           </span>
+     <Divider size="xs" />
      </div>
 }
 
@@ -65,6 +71,22 @@ TopBar.propTypes = {
      title: PropTypes.string.isRequired,
 }
 export default function Dashboard (props) {
+     showNotification({
+          id: 'hello-there',
+          disallowClose: true,
+          autoClose: 7000,
+          title: "Welcome",
+          message: 'Welcome to your dashboard',
+          color: 'green',
+          icon: <Check color="green" />,
+          loading: false,
+     });
+
+     const {user, setUser} = useContext(userContext);
+     if (!user) {
+         return <Navigate to={'/SignIn'} replace={true} />
+     }
+
      return <div className="flex bg-gray-200 dashboard-app">
           <Sidebar />
           <div className="flex flex-col w-full h-full">
