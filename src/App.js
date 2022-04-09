@@ -5,7 +5,6 @@ import ProductsPage from "./pages/Products";
 import AnalyticsPage from "./pages/Analytics";
 import MessagesPage from "./pages/Messages";
 import SettingsPage from "./pages/Settings";
-import LoginPage from "./pages/LogIn";
 import SignInPage from "./pages/SignIn";
 import UserProfilePage from "./pages/Profile";
 import { defaultUserContextState, userContext } from "./context/userContext";
