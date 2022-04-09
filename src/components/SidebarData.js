@@ -49,10 +49,6 @@ export const TopBarNotifIcon = {
      text: 'Notifications',
 };
 
-export const TopBarAvatar = {
-     icon: <Link to={'/Profile'}><User size={32} color={'blue'} /></Link>,
-}
-
 export const SidebarWidths = {
      min: '80px',
      max: '218px',
