@@ -1,17 +1,24 @@
 import Dashboard from "./components/Dashboard";
-import { Routes, Route, BrowserRouter } from "react-router-dom";
-import DashboardPage from "./components/pages/Dashboard";
-import ProductsPage from "./components/pages/Products";
-import AnalyticsPage from "./components/pages/Analytics";
-import MessagesPage from "./components/pages/Messages";
-import SettingsPage from "./components/pages/Settings";
-import { AppTitleContext } from "./components/context/AppTitleContext";
-import LoginPage from "./components/pages/LogIn";
-import SignInPage from "./components/pages/SignIn";
+import { Routes, Route, BrowserRouter, Navigate } from "react-router-dom";
+import DashboardPage from "./pages/Dashboard";
+import ProductsPage from "./pages/Products";
+import AnalyticsPage from "./pages/Analytics";
+import MessagesPage from "./pages/Messages";
+import SettingsPage from "./pages/Settings";
+import LoginPage from "./pages/LogIn";
+import SignInPage from "./pages/SignIn";
+import UserProfilePage from "./pages/Profile";
+import { defaultUserContextState, userContext } from "./context/userContext";
+import {  useState } from "react";
+import { NotificationsProvider } from "@mantine/notifications";
+import { MantineProvider } from "@mantine/core";
 
 function App() {
-    return <div className="App">
-    <AppTitleContext.Provider>
+  const [user, setUser] = useState(defaultUserContextState);
+    return <MantineProvider>
+    <NotificationsProvider>
+    <div className="App">
+    <userContext.Provider value={{user, setUser}}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Dashboard AppTitle="Dashboard" pageElement={<DashboardPage />} />} />
@@ -19,12 +26,16 @@ function App() {
           <Route path="/Analytics" element={<Dashboard AppTitle="Analytics" pageElement={<AnalyticsPage />} />} />
           <Route path="/Messages" element={<Dashboard AppTitle="Messages" pageElement={<MessagesPage />} />} />
           <Route path="/Settings" element={<Dashboard AppTitle="Settings" pageElement={<SettingsPage />} />} />
-          <Route path="/Login" element={LoginPage} />
-          <Route path="/SignIn" element={SignInPage} />
+          <Route path="/Profile" element={<Dashboard AppTitle="Settings" pageElement={<UserProfilePage />} />} />
+          <Route path="/Login" element={<LoginPage />} />
+          <Route path="/SignIn" element={<SignInPage />} />
+          <Route path="*" element={<Navigate to='/' />} />
         </Routes>
       </BrowserRouter>
-    </AppTitleContext.Provider>
-    </div>
+    </userContext.Provider>
+  </div>
+  </NotificationsProvider>
+  </MantineProvider>
 }
 
 export default App;
