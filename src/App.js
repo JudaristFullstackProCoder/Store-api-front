@@ -27,7 +27,6 @@ function App() {
           <Route path="/Messages" element={<Dashboard AppTitle="Messages" pageElement={<MessagesPage />} />} />
           <Route path="/Settings" element={<Dashboard AppTitle="Settings" pageElement={<SettingsPage />} />} />
           <Route path="/Profile" element={<Dashboard AppTitle="Settings" pageElement={<UserProfilePage />} />} />
-          <Route path="/Login" element={<LoginPage />} />
           <Route path="/SignIn" element={<SignInPage />} />
           <Route path="*" element={<Navigate to='/' />} />
         </Routes>
