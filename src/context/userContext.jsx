@@ -2,12 +2,12 @@ import { createContext } from "react";
 
 const userContext = createContext({
      user: null,
-     setUser: () => {}
+     setUser() {},
 });
 
-const defaultUserContext = {
+const defaultUserContextState = {
      user: null,
-     setUser: () => {}
+     setUser() {},
 }
 
-export {userContext, defaultUserContext}
+export {userContext, defaultUserContextState}
