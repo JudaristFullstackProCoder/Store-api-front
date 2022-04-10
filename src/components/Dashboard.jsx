@@ -82,8 +82,9 @@ export default function Dashboard (props) {
           loading: false,
      });
 
-     const {user, setUser} = useContext(userContext);
-     if (!user) {
+     // Constraint user to login for him to see the dashboard because Dashboard component is wrapper for all page inside user Dashboard
+     const {user} = useContext(userContext);
+     if (user === null || user?.user === null) {
          return <Navigate to={'/SignIn'} replace={true} />
      }
 

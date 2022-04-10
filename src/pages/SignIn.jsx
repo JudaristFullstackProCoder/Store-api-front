@@ -43,13 +43,13 @@ export default function SignInPage () {
 
   // Listen to the Firebase Auth state and set the local state.
   useEffect(() => {
-    const unregisterAuthObserver = firebase.auth().onAuthStateChanged(user => {
+    const unregisterAuthObserver = firebase.auth().onIdTokenChanged(user => {
       setUser(user?user._delegate : null);
     });
     return () => unregisterAuthObserver(); // Make sure we un-register Firebase observers when the component unmounts.
   }, [setUser]);
 
-  const {user, setAuthUser} = useContext(userContext);
+  const {user} = useContext(userContext);
   if (user){
       const currentUser = firebase.auth().currentUser?._delegate;
       localStorage.setItem('user', JSON.stringify(currentUser));
