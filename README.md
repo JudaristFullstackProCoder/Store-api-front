@@ -2,6 +2,12 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## UML Diagramm
+
+## Authentication
+
+![alt](./docs/images/AuthSequenceDiagramm.PNG)
+
 ## Available Scripts
 
 In the project directory, you can run:
