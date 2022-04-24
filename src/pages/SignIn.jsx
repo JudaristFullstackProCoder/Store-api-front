@@ -31,7 +31,7 @@ const uiConfig = {
     firebase.auth.GithubAuthProvider.PROVIDER_ID,
     firebase.auth.EmailAuthProvider.PROVIDER_ID,
     firebase.auth.PhoneAuthProvider.PROVIDER_ID,
-    apple.com
+    'apple.com'
   ],
   callbacks: {
     // Not Avoid redirects after sign-in.
